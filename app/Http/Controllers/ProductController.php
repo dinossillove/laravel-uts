@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -10,7 +12,7 @@ class ProductController extends Controller
     // Menampilkan seluruh produk
     public function index()
     {
-        $products = Product::latest()->get();
+        $products = Product::with(['supplier', 'category'])->latest()->get();
 
         return view('products.index', compact('products'));
     }
@@ -18,7 +20,10 @@ class ProductController extends Controller
     // Menampilkan form tambah produk
     public function create()
     {
-        return view('products.create');
+        $suppliers = Supplier::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
+
+        return view('products.create', compact('suppliers', 'categories'));
     }
 
     // Menyimpan produk baru
@@ -29,6 +34,8 @@ class ProductController extends Controller
             'price' => 'required|integer|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
+            'supplier_id' => 'nullable|exists:suppliers,id',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         Product::create($data);
@@ -40,7 +47,10 @@ class ProductController extends Controller
     // Menampilkan form edit
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));
+        $suppliers = Supplier::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
+
+        return view('products.edit', compact('product', 'suppliers', 'categories'));
     }
 
     // Memperbarui produk
@@ -51,6 +61,8 @@ class ProductController extends Controller
             'price' => 'required|integer|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
+            'supplier_id' => 'nullable|exists:suppliers,id',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $product->update($data);
