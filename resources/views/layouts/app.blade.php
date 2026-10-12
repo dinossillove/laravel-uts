@@ -33,6 +33,23 @@
                     Produk
                 </a>
 
+                @auth
+                    <a href="{{ route('customers.index') }}"
+                       class="hover:text-blue-600">
+                        Customer
+                    </a>
+
+                    <a href="{{ route('suppliers.index') }}"
+                       class="hover:text-blue-600">
+                        Supplier
+                    </a>
+
+                    <a href="{{ route('categories.index') }}"
+                       class="hover:text-blue-600">
+                        Kategori
+                    </a>
+                @endauth
+
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
 

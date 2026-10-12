@@ -62,6 +62,40 @@
                        class="w-full border border-slate-300 rounded-lg p-3">
             </div>
 
+            <div class="mb-4">
+                <label class="block mb-2 font-medium">
+                    Supplier (opsional)
+                </label>
+
+                <select name="supplier_id"
+                        class="w-full border border-slate-300 rounded-lg p-3">
+                    <option value="">Pilih supplier</option>
+                    @foreach($suppliers as $supplier)
+                        <option value="{{ $supplier->id }}"
+                                @selected(old('supplier_id', $product->supplier_id) == $supplier->id)>
+                            {{ $supplier->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 font-medium">
+                    Kategori (opsional)
+                </label>
+
+                <select name="category_id"
+                        class="w-full border border-slate-300 rounded-lg p-3">
+                    <option value="">Pilih kategori</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}"
+                                @selected(old('category_id', $product->category_id) == $category->id)>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="mb-6">
                 <label class="block mb-2 font-medium">
                     Deskripsi

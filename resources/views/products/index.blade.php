@@ -45,6 +45,8 @@
                         <th class="p-4">Nama Produk</th>
                         <th class="p-4">Harga</th>
                         <th class="p-4">Stok</th>
+                        <th class="p-4">Supplier</th>
+                        <th class="p-4">Kategori</th>
                         <th class="p-4">Aksi</th>
                     </tr>
                 </thead>
@@ -67,6 +69,14 @@
 
                             <td class="p-4">
                                 {{ $product->stock }}
+                            </td>
+
+                            <td class="p-4">
+                                {{ $product->supplier->name ?? '-' }}
+                            </td>
+
+                            <td class="p-4">
+                                {{ $product->category->name ?? '-' }}
                             </td>
 
                             <td class="p-4">
@@ -95,7 +105,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5"
+                            <td colspan="7"
                                 class="p-6 text-center text-slate-500">
                                 Belum ada produk.
                             </td>
